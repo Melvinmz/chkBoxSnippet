@@ -1,0 +1,38 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form method="post">
+    <div class="text-left">
+        <h1 class="display-4">Welcome</h1>
+        <br />
+        <br />
+        @if (Model.SelectedSkills != null)
+        {
+            <h5>Selected Skills:@Model.SelectedSkills </h5>
+            <h5>Selected Skill Ids :@Model.SelectedSkillIDs </h5>
+            <br />
+        }
+        @{ for (int i = 1; i < Model.Skills.Count; i++)
+            {
+                var j = i - 1;
+                <input asp-for="@Model.Skills[j].Value" type="hidden" />
+                <input asp-for="@Model.Skills[j].Text" type="hidden" />
+                {
+                    <input asp-for="@Model.Skills[j].Selected" /> @Model.Skills[j].Text
+                }
+
+                if (i % 3 == 0 && i != 0)
+                {
+                    <br />
+                }
+            }
+        }
+
+        <div class="form-group mt-2">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
